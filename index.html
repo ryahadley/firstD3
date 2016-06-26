@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='./style.css'>
+    <title>baby's first D3</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js'></script>
+  </head>
+  <body>
+    <script type='text/javascript'>
+      var dataset = [5, 17, 12, 55, 39];
+
+      var w = 500;
+      var h = 500;
+
+      var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+      var circles = svg.selectAll("circle")
+                 .data(dataset)
+                 .enter()
+                 .append("circle");
+
+       circles.attr("cx", function(d, i) {
+            return (i * 50) + 25;
+        })
+       .attr("cy", h/2)
+       .attr("r", function(d) {
+            return d;
+       })
+       .attr("fill", "yellow")
+       .attr("stroke", "orange")
+       .attr('margin-left', 30 + "px");
+
+       svg.selectAll("text")
+       .data(dataset)
+       .enter()
+       .append("text")
+       .text(function(d) {
+         return d;
+       })
+       .attr("x", function(d, i) {
+           return i * (w / dataset.length);
+      })
+      .attr("y", function(d) {
+           return h - (d * 4);
+      });
+
+      d3.select('body').selectAll('div').data(dataset).enter().append('div').attr('class', 'bar').style('height', function(d) {
+        return d * 2 + 'px';
+      });
+    </script>
+  </body>
+</html>
